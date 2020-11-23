@@ -12,6 +12,7 @@ class OverviewAdapter(lifecycleOwner: LifecycleOwner) : BindingRecyclerAdapter<P
 
     class OverviewVH(private val binding: OverviewVhBinding) : BindingRecyclerAdapter.BindingVH<Podcast>(binding.root) {
         override fun bind(index: Int, data: Podcast) {
+            binding.coverUrl = data.artworkUrl100
             binding.artistName = data.artistName
             binding.podcastName = data.name
         }
