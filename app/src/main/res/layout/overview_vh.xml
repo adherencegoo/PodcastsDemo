@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="artistName"
+            type="String" />
+
+        <variable
+            name="podcastName"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/horizontal_margin"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/podcastCoverImage"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_podcast"
+            app:layout_constraintBottom_toTopOf="@+id/artistNameText"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/artistNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{artistName}"
+            app:layout_constraintBottom_toTopOf="@+id/podcastNameText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/podcastCoverImage"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/podcastNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{podcastName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/artistNameText"
+            tools:text="Subtitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

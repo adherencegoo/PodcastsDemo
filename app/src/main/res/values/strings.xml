@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PodcastsDemo</string>
+    <string name="overview_title">Casts</string>
 </resources>
