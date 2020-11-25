@@ -1,9 +1,11 @@
 package xdd.example.podcastsdemo.ui.details
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,11 +27,23 @@ class DetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         fragmentBinding = DetailsFragmentBinding.inflate(inflater, container, false)
         fragmentBinding.lifecycleOwner = this
+        fragmentBinding.toolbar.setNavigationOnClickListener {
+            (it.context as? Activity)?.onBackPressed()
+        }
         return fragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        (activity as? AppCompatActivity)?.let { compatActivity ->
+            compatActivity.setSupportActionBar(fragmentBinding.toolbar)
+            compatActivity.supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(true)
+                setDisplayShowHomeEnabled(true)
+                setDisplayShowTitleEnabled(false)
+            }
+        }
 
         feedAdapter = FeedAdapter(this)
 

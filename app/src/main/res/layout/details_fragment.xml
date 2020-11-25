@@ -23,9 +23,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="@string/overview_title"
-            app:titleMarginStart="@dimen/horizontal_margin" />
+            android:background="?attr/colorPrimary" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/main"
