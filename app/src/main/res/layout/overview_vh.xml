@@ -6,22 +6,19 @@
     <data>
 
         <variable
-            name="artistName"
-            type="String" />
+            name="viewModel"
+            type="xdd.example.podcastsdemo.ui.overview.OverviewViewModel" />
 
         <variable
-            name="podcastName"
-            type="String" />
-
-        <variable
-            name="coverUrl"
-            type="String" />
+            name="podcast"
+            type="xdd.example.podcastsdemo.model.data.Podcast" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/horizontal_margin"
+        android:onClick="@{(v) -> viewModel.onOverviewClicked(v, podcast)}"
         android:orientation="vertical">
 
         <ImageView
@@ -29,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:src="@drawable/ic_podcast"
-            app:glideUrl="@{coverUrl}"
+            app:glideUrl="@{podcast.artworkUrl100}"
             app:layout_constraintBottom_toTopOf="@+id/artistNameText"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +38,7 @@
             android:id="@+id/artistNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{artistName}"
+            android:text="@{podcast.artistName}"
             app:layout_constraintBottom_toTopOf="@+id/podcastNameText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/podcastCoverImage"
@@ -51,7 +48,7 @@
             android:id="@+id/podcastNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{podcastName}"
+            android:text="@{podcast.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/artistNameText"

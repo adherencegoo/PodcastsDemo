@@ -30,15 +30,16 @@ class OverviewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java)
 
-        overviewAdapter = OverviewAdapter(this)
+        overviewAdapter = OverviewAdapter(this, viewModel)
 
         fragmentBinding.overviewRecycler.apply {
             adapter = overviewAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
         }
 
-        viewModel = ViewModelProvider(this).get(OverviewViewModel::class.java).apply {
+        viewModel.apply {
             liveOverviewList.observe(this@OverviewFragment, Observer {
                 overviewAdapter.setData(it)
             })

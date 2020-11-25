@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="podcastCollection"
+            type="xdd.example.podcastsdemo.model.data.PodcastCollection" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:layout_marginEnd="@dimen/horizontal_margin">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".25" />
+
+        <ImageView
+            android:id="@+id/podcastCoverImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:glideUrl="@{podcastCollection.artworkUrl100}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/startVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_podcast" />
+
+        <TextView
+            android:id="@+id/podcastNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginBottom="5dp"
+            android:text="@{podcastCollection.collectionName}"
+            app:layout_constraintBottom_toTopOf="@id/artistNameText"
+            app:layout_constraintStart_toEndOf="@id/podcastCoverImage"
+            tools:text="podcastName" />
+
+        <TextView
+            android:id="@+id/artistNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{podcastCollection.artistName}"
+            app:layout_constraintBottom_toBottomOf="@id/podcastCoverImage"
+            app:layout_constraintStart_toStartOf="@id/podcastNameText"
+            tools:text="artistName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/all_episodes"
+            app:layout_constraintEnd_toEndOf="@id/podcastCoverImage"
+            app:layout_constraintStart_toStartOf="@id/podcastCoverImage"
+            app:layout_constraintTop_toBottomOf="@id/podcastCoverImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
