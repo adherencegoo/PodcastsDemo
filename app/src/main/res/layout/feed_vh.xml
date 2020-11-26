@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="feedTitle"
-            type="String" />
+            name="viewModel"
+            type="xdd.example.podcastsdemo.ui.details.DetailsViewModel" />
+
+        <variable
+            name="contentFeed"
+            type="xdd.example.podcastsdemo.model.data.PodcastContentFeed" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,11 +23,11 @@
             android:id="@+id/feedTitleText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{feedTitle}"
+            android:text="@{contentFeed.title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/playButton"
             app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Feed title" />
 
@@ -31,6 +35,7 @@
             android:id="@+id/playButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{(v) -> viewModel.onFeedClicked(v, viewModel.livePodcastCollection, contentFeed)}"
             android:src="@drawable/ic_play_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

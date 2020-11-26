@@ -36,6 +36,8 @@ class DetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
+
         (activity as? AppCompatActivity)?.let { compatActivity ->
             compatActivity.setSupportActionBar(fragmentBinding.toolbar)
             compatActivity.supportActionBar?.apply {
@@ -45,14 +47,14 @@ class DetailsFragment : Fragment() {
             }
         }
 
-        feedAdapter = FeedAdapter(this)
+        feedAdapter = FeedAdapter(this, viewModel)
 
         fragmentBinding.feedRecycler.apply {
             adapter = feedAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java).apply {
+        viewModel.apply {
             livePodcastCollection.observe(this@DetailsFragment, Observer {
                 fragmentBinding.podcastCollection = it
                 feedAdapter.setData(it?.podcastContentFeed ?: emptyList())

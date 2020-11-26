@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="xdd.example.podcastsdemo.ui.playing.PlayingViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/podcastCoverImage"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:glideUrl="@{viewModel.playingAsset.coverUrl}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:src="@drawable/ic_podcast" />
+
+        <!--suppress AndroidUnknownAttribute -->
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="1000"
+            android:onProgressChanged="@{viewModel::onSeekChanged}"
+            android:onStopTrackingTouch="@{viewModel::onSeekEnd}"
+            android:onStartTrackingTouch="@{viewModel::onSeekStart}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/podcastCoverImage"
+            app:progressByPercentage="@{viewModel.livePercentage}" />
+
+        <TextView
+            android:id="@+id/currentTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.liveCurrentTimeText}"
+            app:layout_constraintStart_toStartOf="@id/seekBar"
+            app:layout_constraintTop_toBottomOf="@id/seekBar"
+            tools:text="0:00" />
+
+        <TextView
+            android:id="@+id/totalTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.liveTotalTimeText}"
+            app:layout_constraintEnd_toEndOf="@id/seekBar"
+            app:layout_constraintTop_toBottomOf="@id/seekBar"
+            tools:text="0:00" />
+
+        <TextView
+            android:id="@+id/feedTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.playingAsset.contentFeed.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currentTimeText"
+            tools:text="feedTitleText" />
+
+        <ProgressBar
+            android:id="@+id/contentLoadingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.liveLoading ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/playPauseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feedTitleText" />
+
+        <ImageView
+            android:id="@+id/rewindButton"
+            android:layout_width="@dimen/rewindForwardButtonSize"
+            android:layout_height="@dimen/rewindForwardButtonSize"
+            android:onClick="@{(v) -> viewModel.onJumpClicked(v, -30_000)}"
+            android:src="@drawable/exo_ic_rewind"
+            app:layout_constraintBottom_toBottomOf="@id/playPauseButton"
+            app:layout_constraintEnd_toStartOf="@+id/playPauseButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/playPauseButton" />
+
+        <ImageView
+            android:id="@+id/playPauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_margin"
+            android:onClick="@{(v) -> viewModel.togglePlaying(v)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fastForwardButton"
+            app:layout_constraintStart_toEndOf="@id/rewindButton"
+            app:playPauseIcon="@{viewModel.livePlaying}"
+            tools:src="@drawable/exo_icon_play" />
+
+        <ImageView
+            android:id="@+id/fastForwardButton"
+            android:layout_width="@dimen/rewindForwardButtonSize"
+            android:layout_height="@dimen/rewindForwardButtonSize"
+            android:onClick="@{(v) -> viewModel.onJumpClicked(v, 30_000)}"
+            android:src="@drawable/exo_ic_forward"
+            app:layout_constraintBottom_toBottomOf="@id/playPauseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/playPauseButton"
+            app:layout_constraintTop_toTopOf="@id/playPauseButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
